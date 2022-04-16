@@ -23,7 +23,7 @@ const Rank = (props) => {
 
   const pictureProperties = {
     style: pictureStyle,
-    x: x - 140,
+    x: x - 490,
     y: y - 40,
     href: props.player.picture,
     clipPath: `url(#${clipId})`,
@@ -46,10 +46,11 @@ const Rank = (props) => {
         </clipPath>
       </defs>
       <use xlinkHref={'#' + rectId} strokeWidth="2" stroke="black" />
-      <text filter="url(#shadow)" style={textStyle} x={x - 200} y={y}>{props.player.rank}º</text>
+      <text filter="url(#shadow)" style={textStyle} x={x - 550} y={y}>{props.player.rank}º</text>
       <image {...pictureProperties} />
-      <text filter="url(#shadow)" style={textStyle} x={x - 60} y={y}>{props.player.name}</text>
-      <text filter="url(#shadow)" style={textStyle} x={x + 350} y={y}>{props.player.maxScore}</text>
+      <text filter="url(#shadow)" style={textStyle} x={x - 350} y={y}>{props.player.name}</text>
+      <text filter="url(#shadow)" style={textStyle} x={x + 800} y={y}>{props.player.maxScore}</text>
+      <text filter="url(#shadow)" style={textStyle} x={x - 50} y={y}>{props.player.address}</text>
     </g>
   );
 };
@@ -61,6 +62,7 @@ Rank.propTypes = {
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
     rank: PropTypes.number.isRequired,
+    address: PropTypes.number.isRequired,
     currentPlayer: PropTypes.bool.isRequired,
   }).isRequired,
   position: PropTypes.shape({

@@ -4,13 +4,17 @@ import { getCanvasPosition } from './utils/formulas';
 import Canvas from './components/Canvas';
 import * as Auth0 from 'auth0-web';
 import io from 'socket.io-client';
+import { TempleWallet } from '@temple-wallet/dapp';
+import axios from 'axios';
+// import { useNavigate } from "react-router-dom";
+
 
 Auth0.configure({
-  domain: 'digituz-corp.auth0.com',
-  clientID: 'D41G9fJIvLrUJivCJpAkxOA74fpxn2Rg',
-  redirectUri: 'http://localhost:3000/',
-  responseType: 'token id_token',
-  scope: 'openid profile manage:points',
+  domain: 'dev-6b879145.us.auth0.com',
+  clientID: 'c9tBe6zLFpk2Ys4ecjooVh2fMm9QzF4U',
+  redirectUri: 'http://aliensgohome.evolvingpandas.com/',
+  grant_type:'client_credentials',
+  scope: 'openid profile manage:points manage:address',
   audience: 'https://aliens-go-home.digituz.com.br',
 });
 
@@ -20,13 +24,61 @@ class App extends Component {
     this.shoot = this.shoot.bind(this);
     this.socket = null;
     this.currentPlayer = null;
+    this.address = null;
   }
-
-  componentDidMount() {
+  
+  async componentDidMount() {
     const self = this;
+    // const navigate = useNavigate();
 
+    try {
+      const available = await TempleWallet.isAvailable();
+      if (!available) {
+        throw new Error("Temple Wallet not installed");
+      }
+      // Note:
+  
+      // use `TempleWallet.isAvailable` method only after web application fully loaded.
+  
+      // Alternatively, you can use the method `TempleWallet.onAvailabilityChange`
+      // that tracks availability in real-time .
+      const wallet = new TempleWallet("My Super DApp");
+      await wallet.connect("mainnet");
+      const tezos = wallet.toTezos();
+  
+      const accountPkh = await tezos.wallet.pkh();
+      self.address = accountPkh;
+
+      const data = await axios.get('https://api.tzkt.io/v1/tokens/balances', {
+            params:
+          {
+          'account':self.address,
+          'token.metadata.name.as':'Evolving Pandas*'
+          }
+        })
+
+        const data2 = await axios.get('https://api.tzkt.io/v1/tokens/balances', {
+            params:
+          {
+          'account':self.address,
+          'token.metadata.name.as':'Evolving Pixel Pandas*'
+          }
+        })
+
+        // for evolving pandas
+        if(data.data.length !== 0 || data2.data.length !== 0){
+          console.log('Access')
+        }
+        else{
+          console.log('No Access !!!!');
+          alert("Kindly buy NFT of Evolving Pandas Go get Access of The Game !!")
+          window.location.assign('http://games.evolvingpandas.com/')
+        }
+
+    } catch (err) {
+      console.error(err);
+    }
     Auth0.handleAuthCallback();
-
     Auth0.subscribe((auth) => {
       if (!auth) return;
 
@@ -36,10 +88,10 @@ class App extends Component {
         maxScore: 0,
         name: self.playerProfile.name,
         picture: self.playerProfile.picture,
+        address:self.address
       };
 
       this.props.loggedIn(self.currentPlayer);
-
       self.socket = io('http://localhost:3001', {
         query: `token=${Auth0.getAccessToken()}`,
       });

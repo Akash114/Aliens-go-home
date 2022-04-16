@@ -35,7 +35,7 @@ const Leaderboard = (props) => {
   return (
     <g>
       <text filter="url(#shadow)" style={leaderboardTitle} x="-150" y="-630">Leaderboard</text>
-      <rect style={style} x="-350" y="-600" width="700" height="330" />
+      <rect style={style} x="-700" y="-600" width="1500" height="330" />
       {
         props.currentPlayer && leaderboard.map((player, idx) => {
           const position = {
@@ -58,6 +58,7 @@ Leaderboard.propTypes = {
     maxScore: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
   }),
   authenticate: PropTypes.func.isRequired,
   leaderboard: PropTypes.arrayOf(PropTypes.shape({
@@ -66,6 +67,7 @@ Leaderboard.propTypes = {
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
     ranking: PropTypes.number,
+    address: PropTypes.string.isRequired,
   })),
 };
 

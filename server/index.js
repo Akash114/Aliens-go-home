@@ -5,13 +5,14 @@ const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
 
 const client = jwksClient({
-  jwksUri: 'https://digituz-corp.auth0.com/.well-known/jwks.json'
+  jwksUri: 'https://dev-6b879145.us.auth0.com/.well-known/jwks.json'
 });
 
 const players = [];
 
 const verifyPlayer = (token, cb) => {
   const uncheckedToken = jwt.decode(token, {complete: true});
+
   const kid = uncheckedToken.header.kid;
 
   client.getSigningKey(kid, (err, key) => {

@@ -87,12 +87,14 @@ Canvas.propTypes = {
     maxScore: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
   }),
   players: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     maxScore: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
   })),
   shoot: PropTypes.func.isRequired,
 };
