@@ -27,13 +27,14 @@ class App extends Component {
     this.address = null;
   }
   
-  async componentDidMount() {
-    const self = this;
-    // const navigate = useNavigate();
-
+  checkWalletConfigurable = async() => {
+    
     try {
+
       const available = await TempleWallet.isAvailable();
       if (!available) {
+        alert("Kindly install Temple Wallet or Enable it To continue !!");          
+        window.location.assign('http://games.evolvingpandas.com/')
         throw new Error("Temple Wallet not installed");
       }
       // Note:
@@ -47,12 +48,12 @@ class App extends Component {
       const tezos = wallet.toTezos();
   
       const accountPkh = await tezos.wallet.pkh();
-      self.address = accountPkh;
+      this.address = accountPkh;
 
       const data = await axios.get('https://api.tzkt.io/v1/tokens/balances', {
             params:
           {
-          'account':self.address,
+          'account':this.address,
           'token.metadata.name.as':'Evolving Pandas*'
           }
         })
@@ -60,7 +61,7 @@ class App extends Component {
         const data2 = await axios.get('https://api.tzkt.io/v1/tokens/balances', {
             params:
           {
-          'account':self.address,
+          'account':this.address,
           'token.metadata.name.as':'Evolving Pixel Pandas*'
           }
         })
@@ -74,10 +75,16 @@ class App extends Component {
           alert("Kindly buy NFT of Evolving Pandas Go get Access of The Game !!")
           window.location.assign('http://games.evolvingpandas.com/')
         }
-
+      
     } catch (err) {
       console.error(err);
     }
+  }
+
+  async componentDidMount() {
+    const self = this;
+    // const navigate = useNavigate();
+    this.checkWalletConfigurable();
     Auth0.handleAuthCallback();
     Auth0.subscribe((auth) => {
       if (!auth) return;
