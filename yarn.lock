@@ -2,6 +2,19 @@
 # yarn lockfile v1
 
 
+"@airgap/beacon-sdk@^2.3.12":
+  "integrity" "sha512-yA6yFQ3YPKvb3TEWiNmhwf1OmhbB6Jf/u/pfA5Aj4bAcoOopy2FVkep/MUVDKzcJZQIh4EvJq7MTn/306cIFYw=="
+  "resolved" "https://registry.npmjs.org/@airgap/beacon-sdk/-/beacon-sdk-2.3.13.tgz"
+  "version" "2.3.13"
+  dependencies:
+    "@types/chrome" "0.0.115"
+    "@types/libsodium-wrappers" "0.7.7"
+    "axios" "0.21.1"
+    "bignumber.js" "9.0.0"
+    "bs58check" "2.1.2"
+    "libsodium-wrappers" "0.7.8"
+    "qrcode-generator" "1.4.4"
+
 "@babel/runtime@^7.7.6":
   "integrity" "sha512-lSiBBvodq29uShpWGNbgFdKYNiFDo5/HIYsaCEY9ff4sb10x9jizo2+pRrSyF4jKZCXqgzuqBOQKbUm90gQwJg=="
   "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.17.9.tgz"
@@ -65,6 +78,14 @@
   "integrity" "sha512-WfqfX/eXGiAd3RJe4VU2snh/ZPwtSjLG4ynQ/vYzvghTh7dHFcI1wl+nrkWG6lGhukOxOsUHfv8dUXr58D0ayg=="
   "resolved" "https://registry.npmjs.org/@stablelib/wipe/-/wipe-1.0.1.tgz"
   "version" "1.0.1"
+
+"@taquito/beacon-wallet@^12.0.3":
+  "integrity" "sha512-cu3CWPW5h1pBY71opsroU+Nwq9rApMNZH3VfGlz1xPkOFtF4uuo7baVmc7y1NamEKdNfc8hM/XH9EYDRHCIlcg=="
+  "resolved" "https://registry.npmjs.org/@taquito/beacon-wallet/-/beacon-wallet-12.0.3.tgz"
+  "version" "12.0.3"
+  dependencies:
+    "@airgap/beacon-sdk" "^2.3.12"
+    "@taquito/taquito" "^12.0.3"
 
 "@taquito/http-utils@^12.0.3":
   "integrity" "sha512-h09czF9j1xTEKtF+kRzvUgW5kJxnG6LtaBmFXY57rJFo4Q9Y+sE2tWIschkH0bNWXeMBXCqwaDDyGaXC2E3agg=="
@@ -146,6 +167,36 @@
   "version" "2.1.0"
   dependencies:
     "@types/node" "*"
+
+"@types/chrome@0.0.115":
+  "integrity" "sha512-pNoYoYgGuI1/kiz53kjrXrKIjn2H8YWOI+vxVTOubX6arCHk/m/jInoyflKiP2qZHZf8+P+hh6d2y9tjaG4BPQ=="
+  "resolved" "https://registry.npmjs.org/@types/chrome/-/chrome-0.0.115.tgz"
+  "version" "0.0.115"
+  dependencies:
+    "@types/filesystem" "*"
+    "@types/har-format" "*"
+
+"@types/filesystem@*":
+  "integrity" "sha512-Yuf4jR5YYMR2DVgwuCiP11s0xuVRyPKmz8vo6HBY3CGdeMj8af93CFZX+T82+VD1+UqHOxTq31lO7MI7lepBtQ=="
+  "resolved" "https://registry.npmjs.org/@types/filesystem/-/filesystem-0.0.32.tgz"
+  "version" "0.0.32"
+  dependencies:
+    "@types/filewriter" "*"
+
+"@types/filewriter@*":
+  "integrity" "sha512-BsPXH/irW0ht0Ji6iw/jJaK8Lj3FJemon2gvEqHKpCdDCeemHa+rI3WBGq5z7cDMZgoLjY40oninGxqk+8NzNQ=="
+  "resolved" "https://registry.npmjs.org/@types/filewriter/-/filewriter-0.0.29.tgz"
+  "version" "0.0.29"
+
+"@types/har-format@*":
+  "integrity" "sha512-OP6L9VuZNdskgNN3zFQQ54ceYD8OLq5IbqO4VK91ORLfOm7WdT/CiT/pHEBSQEqCInJ2y3O6iCm/zGtPElpgJQ=="
+  "resolved" "https://registry.npmjs.org/@types/har-format/-/har-format-1.2.8.tgz"
+  "version" "1.2.8"
+
+"@types/libsodium-wrappers@0.7.7":
+  "integrity" "sha512-Li91pVKcLvQJK3ZolwCPo85oxf2gKBCApgnesRxYg4OVYchLXcJB2eivX8S87vfQVv6ZRnyCO1lLDosZGJfpRg=="
+  "resolved" "https://registry.npmjs.org/@types/libsodium-wrappers/-/libsodium-wrappers-0.7.7.tgz"
+  "version" "0.7.7"
 
 "@types/node@*":
   "integrity" "sha512-aveCYRQbgTH9Pssp1voEP7HiuWlD2jW2BO56w+bVrJn04i61yh6mRfoKO6hEYQD9vF+W8Chkwc6j1M36uPkx4g=="
@@ -570,6 +621,13 @@
   "version" "0.26.1"
   dependencies:
     "follow-redirects" "^1.14.8"
+
+"axios@0.21.1":
+  "integrity" "sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-0.21.1.tgz"
+  "version" "0.21.1"
+  dependencies:
+    "follow-redirects" "^1.10.0"
 
 "axobject-query@0.1.0":
   "integrity" "sha1-YvWdvFnJ+SQnWco0mWDnov48NsA="
@@ -1366,6 +1424,11 @@
   "resolved" "https://registry.npmjs.org/bignumber.js/-/bignumber.js-9.0.2.tgz"
   "version" "9.0.2"
 
+"bignumber.js@9.0.0":
+  "integrity" "sha512-t/OYhhJ2SD+YGBQcjY8GzzDHEk9f3nerxjtfa6tlMXfe7frs/WozhvCNoGvpM0P3bNf3Gq5ZRMlGr5f3r4/N8A=="
+  "resolved" "https://registry.npmjs.org/bignumber.js/-/bignumber.js-9.0.0.tgz"
+  "version" "9.0.0"
+
 "binary-extensions@1.11.0":
   "integrity" "sha1-RqoXUftqL5PuXmibsQh9SxTGwgU="
   "resolved" "https://registry.npmjs.org/binary-extensions/-/binary-extensions-1.11.0.tgz"
@@ -1584,7 +1647,7 @@
   dependencies:
     "base-x" "^3.0.2"
 
-"bs58check@^2.1.2":
+"bs58check@^2.1.2", "bs58check@2.1.2":
   "integrity" "sha512-0TS1jicxdU09dwJMNZtVAfzPi6Q6QeN0pM1Fkzrjn+XYHvzMKPU3pHVpva+769iNVSfIYWf7LJ6WR+BuuMf8cA=="
   "resolved" "https://registry.npmjs.org/bs58check/-/bs58check-2.1.2.tgz"
   "version" "2.1.2"
@@ -3415,7 +3478,7 @@
   "resolved" "https://registry.npmjs.org/flatten/-/flatten-1.0.2.tgz"
   "version" "1.0.2"
 
-"follow-redirects@^1.14.8":
+"follow-redirects@^1.10.0", "follow-redirects@^1.14.8":
   "integrity" "sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w=="
   "resolved" "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.9.tgz"
   "version" "1.14.9"
@@ -5052,6 +5115,18 @@
     "prelude-ls" "1.1.2"
     "type-check" "0.3.2"
 
+"libsodium-wrappers@0.7.8":
+  "integrity" "sha512-PDhPWXBqd/SaqAFUBgH2Ux7b3VEEJgyD6BQB+VdNFJb9PbExGr/T/myc/MBoSvl8qLzfm0W0IVByOQS5L1MrCg=="
+  "resolved" "https://registry.npmjs.org/libsodium-wrappers/-/libsodium-wrappers-0.7.8.tgz"
+  "version" "0.7.8"
+  dependencies:
+    "libsodium" "0.7.8"
+
+"libsodium@0.7.8":
+  "integrity" "sha512-/Qc+APf0jbeWSaeEruH0L1/tbbT+sbf884ZL0/zV/0JXaDPBzYkKbyb/wmxMHgAHzm3t6gqe7bOOXAVwfqVikQ=="
+  "resolved" "https://registry.npmjs.org/libsodium/-/libsodium-0.7.8.tgz"
+  "version" "0.7.8"
+
 "load-json-file@1.1.0":
   "integrity" "sha1-lWkFcI1YtLq0wiYbBPWfMcmTdMA="
   "resolved" "https://registry.npmjs.org/load-json-file/-/load-json-file-1.1.0.tgz"
@@ -6518,6 +6593,11 @@
   "integrity" "sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc="
   "resolved" "https://registry.npmjs.org/q/-/q-1.5.1.tgz"
   "version" "1.5.1"
+
+"qrcode-generator@1.4.4":
+  "integrity" "sha512-HM7yY8O2ilqhmULxGMpcHSF1EhJJ9yBj8gvDEuZ6M+KGJ0YY2hKpnXvRD+hZPLrDVck3ExIGhmPtSdcjC+guuw=="
+  "resolved" "https://registry.npmjs.org/qrcode-generator/-/qrcode-generator-1.4.4.tgz"
+  "version" "1.4.4"
 
 "qs@~6.4.0":
   "resolved" "https://registry.npmjs.org/qs/-/qs-6.4.0.tgz"

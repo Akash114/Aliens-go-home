@@ -19,6 +19,7 @@ Auth0.configure({
 });
 
 class App extends Component {
+
   constructor(props) {
     super(props);
     this.shoot = this.shoot.bind(this);
@@ -26,12 +27,13 @@ class App extends Component {
     this.currentPlayer = null;
     this.address = null;
   }
-  
+
+
   checkWalletConfigurable = async() => {
     
     try {
-
       const available = await TempleWallet.isAvailable();
+      console.log(available);
       if (!available) {
         alert("Kindly install Temple Wallet or Enable it To continue !!");          
         window.location.assign('http://games.evolvingpandas.com/')
@@ -44,12 +46,18 @@ class App extends Component {
       // Alternatively, you can use the method `TempleWallet.onAvailabilityChange`
       // that tracks availability in real-time .
       const wallet = new TempleWallet("My Super DApp");
-      await wallet.connect("mainnet");
-      const tezos = wallet.toTezos();
+      const tezos = await wallet.connect("mainnet").then(()=>{
+        const tezos = wallet.toTezos();
+          return tezos
+      })
+      .catch(err=>{
+        alert("Kindly Connect your wallet and Try Again");
+        window.location.reload(false);
+      });
   
       const accountPkh = await tezos.wallet.pkh();
       this.address = accountPkh;
-
+      console.log(this.address);
       const data = await axios.get('https://api.tzkt.io/v1/tokens/balances', {
             params:
           {
@@ -81,10 +89,21 @@ class App extends Component {
     }
   }
 
-  async componentDidMount() {
+  // function coonect(){
+  //   React.useEffect(() => {
+  //     return TempleWallet.onAvailabilityChange((available) => {
+  //       setState({
+  //         wallet: available ? new TempleWallet(appName) : null,
+  //         tezos: null,
+  //         accountPkh: null,
+  //       });
+  //     });
+  //   }, [setState, appName]);
+  // }
+
+  async componentDidMount() { 
     const self = this;
     // const navigate = useNavigate();
-    this.checkWalletConfigurable();
     Auth0.handleAuthCallback();
     Auth0.subscribe((auth) => {
       if (!auth) return;
@@ -123,7 +142,10 @@ class App extends Component {
       cnv.style.height = `${window.innerHeight}px`;
     };
     window.onresize();
+    window.addEventListener('load', this.checkWalletConfigurable());
+
   }
+
 
   componentWillReceiveProps(nextProps) {
     if (!nextProps.gameState.started && this.props.gameState.started) {
@@ -147,7 +169,7 @@ class App extends Component {
 
   render() {
     return (
-      <Canvas
+        <Canvas
         angle={this.props.angle}
         currentPlayer={this.props.currentPlayer}
         gameState={this.props.gameState}
