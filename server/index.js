@@ -4,6 +4,10 @@ const io = require('socket.io')(http);
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
 
+const path = require('path');
+
+app.use(express.static(path.join(__dirname, '../build')));
+
 const client = jwksClient({
   jwksUri: 'https://dev-6b879145.us.auth0.com/.well-known/jwks.json'
 });
@@ -49,6 +53,6 @@ io.on('connection', (socket) => {
   socket.on('new-max-score', newMaxScoreHandler);
 });
 
-http.listen(3001, () => {
-  console.log('listening on port 3001');
+http.listen(9000, () => {
+  console.log('listening on port 9000');
 });

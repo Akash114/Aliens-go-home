@@ -12,7 +12,7 @@ import axios from 'axios';
 Auth0.configure({
   domain: 'dev-6b879145.us.auth0.com',
   clientID: 'c9tBe6zLFpk2Ys4ecjooVh2fMm9QzF4U',
-  redirectUri: 'http://aliensgohome.evolvingpandas.com/',
+  redirectUri: 'https://aliensgohome.evolvingpandas.com/',
   grant_type:'client_credentials',
   scope: 'openid profile manage:points manage:address',
   audience: 'https://aliens-go-home.digituz.com.br',
@@ -61,7 +61,7 @@ class App extends Component {
       const data = await axios.get('https://api.tzkt.io/v1/tokens/balances', {
             params:
           {
-          'account':this.address,
+          'account':this.addres,
           'token.metadata.name.as':'Evolving Pandas*'
           }
         })
@@ -118,7 +118,7 @@ class App extends Component {
       };
 
       this.props.loggedIn(self.currentPlayer);
-      self.socket = io('http://localhost:3001', {
+      self.socket = io('https://aliensgohome.evolvingpandas.com/', {
         query: `token=${Auth0.getAccessToken()}`,
       });
 
