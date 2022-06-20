@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getCanvasPosition } from './utils/formulas';
 import Canvas from './components/Canvas';
@@ -6,6 +6,7 @@ import * as Auth0 from 'auth0-web';
 import io from 'socket.io-client';
 import { TempleWallet } from '@temple-wallet/dapp';
 import axios from 'axios';
+import Loading from "./Images/ufo.gif"
 // import { useNavigate } from "react-router-dom";
 
 
@@ -13,7 +14,7 @@ Auth0.configure({
   domain: 'dev-6b879145.us.auth0.com',
   clientID: 'c9tBe6zLFpk2Ys4ecjooVh2fMm9QzF4U',
   redirectUri: 'https://aliensgohome.evolvingpandas.com/',
-  grant_type:'client_credentials',
+  grant_type: 'client_credentials',
   scope: 'openid profile manage:points manage:address',
   audience: 'https://aliens-go-home.digituz.com.br',
 });
@@ -26,64 +27,66 @@ class App extends Component {
     this.socket = null;
     this.currentPlayer = null;
     this.address = null;
+    this.state = { show: true }
   }
 
 
-  checkWalletConfigurable = async() => {
-    
+  checkWalletConfigurable = async () => {
+
     try {
       const available = await TempleWallet.isAvailable();
       console.log(available);
       if (!available) {
-        alert("Kindly install Temple Wallet or Enable it To continue !!");          
-        window.location.assign('http://games.evolvingpandas.com/')
+        alert("Kindly install Temple Wallet or Enable it To continue !!");
+        // window.location.assign('http://games.evolvingpandas.com/')
         throw new Error("Temple Wallet not installed");
       }
       // Note:
-  
+
       // use `TempleWallet.isAvailable` method only after web application fully loaded.
-  
+
       // Alternatively, you can use the method `TempleWallet.onAvailabilityChange`
       // that tracks availability in real-time .
       const wallet = new TempleWallet("My Super DApp");
-      const tezos = await wallet.connect("mainnet").then(()=>{
+      const tezos = await wallet.connect("mainnet").then(() => {
         const tezos = wallet.toTezos();
-          return tezos
+        return tezos
       })
-      .catch(err=>{
-        alert("Kindly Connect your wallet and Try Again");
-        window.location.reload(false);
-      });
-  
+        .catch(err => {
+          alert("Kindly Connect your wallet and Try Again");
+          window.location.reload(false);
+        });
+
       const accountPkh = await tezos.wallet.pkh();
       this.address = accountPkh;
       console.log(this.address);
       const data = await axios.get('https://api.tzkt.io/v1/tokens/balances', {
-            params:
-          {
-          'account':this.addres,
-          'token.metadata.name.as':'Evolving Pandas*'
-          }
-        })
-
-        const data2 = await axios.get('https://api.tzkt.io/v1/tokens/balances', {
-            params:
-          {
-          'account':this.address,
-          'token.metadata.name.as':'Evolving Pixel Pandas*'
-          }
-        })
-
-        // for evolving pandas
-        if(data.data.length !== 0 || data2.data.length !== 0){
-          console.log('Access')
+        params:
+        {
+          'account': this.addres,
+          'token.metadata.name.as': 'Evolving Pandas*'
         }
-        else{
-          console.log('No Access !!!!');
-          alert("Kindly buy NFT of Evolving Pandas Go get Access of The Game !!")
-          window.location.assign('http://games.evolvingpandas.com/')
+      })
+
+      const data2 = await axios.get('https://api.tzkt.io/v1/tokens/balances', {
+        params:
+        {
+          'account': this.address,
+          'token.metadata.name.as': 'Evolving Pixel Pandas*'
         }
-      
+      })
+
+      // for evolving pandas
+      if (data.data.length !== 0 || data2.data.length !== 0) {
+        console.log('Access');
+        this.setState({ show: false })
+      }
+      else {
+        console.log('No Access !!!!');
+        alert("Kindly buy NFT of Evolving Pandas Go get Access of The Game !!")
+        window.location.assign('http://games.evolvingpandas.com/')
+      }
+
     } catch (err) {
       console.error(err);
     }
@@ -101,7 +104,7 @@ class App extends Component {
   //   }, [setState, appName]);
   // }
 
-  async componentDidMount() { 
+  async componentDidMount() {
     const self = this;
     // const navigate = useNavigate();
     Auth0.handleAuthCallback();
@@ -114,7 +117,7 @@ class App extends Component {
         maxScore: 0,
         name: self.playerProfile.name,
         picture: self.playerProfile.picture,
-        address:self.address
+        address: self.address
       };
 
       this.props.loggedIn(self.currentPlayer);
@@ -169,15 +172,31 @@ class App extends Component {
 
   render() {
     return (
+      <>
         <Canvas
-        angle={this.props.angle}
-        currentPlayer={this.props.currentPlayer}
-        gameState={this.props.gameState}
-        players={this.props.players}
-        startGame={this.props.startGame}
-        trackMouse={event => (this.trackMouse(event))}
-        shoot={this.shoot}
-      />
+          angle={this.props.angle}
+          currentPlayer={this.props.currentPlayer}
+          gameState={this.props.gameState}
+          players={this.props.players}
+          startGame={this.props.startGame}
+          trackMouse={event => (this.trackMouse(event))}
+          shoot={this.shoot}
+        />
+
+        {
+          this.state.show
+            ?
+            <div style={{ position: 'fixed', width: '100%', height: '100vh', top: '0', backgroundColor: "rgba(0, 15, 147, 1)" }}>
+              <div style={{ position: "fixed", top: '200px', width: '100%' }}>
+                <div style={{ margin: "0 auto", width: "400px" }}>
+                  <img width={"400px"} height={"300px"} style={{ borderRadius: "20px" }} alt="Loading" src={Loading} />
+                </div>
+              </div>
+            </div>
+            :
+            null
+        }
+      </>
     );
   }
 }
