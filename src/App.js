@@ -173,16 +173,6 @@ class App extends Component {
   render() {
     return (
       <>
-        <Canvas
-          angle={this.props.angle}
-          currentPlayer={this.props.currentPlayer}
-          gameState={this.props.gameState}
-          players={this.props.players}
-          startGame={this.props.startGame}
-          trackMouse={event => (this.trackMouse(event))}
-          shoot={this.shoot}
-        />
-
         {
           this.state.show
             ?
@@ -194,7 +184,15 @@ class App extends Component {
               </div>
             </div>
             :
-            null
+            <Canvas
+              angle={this.props.angle}
+              currentPlayer={this.props.currentPlayer}
+              gameState={this.props.gameState}
+              players={this.props.players}
+              startGame={this.props.startGame}
+              trackMouse={event => (this.trackMouse(event))}
+              shoot={this.shoot}
+            />
         }
       </>
     );
