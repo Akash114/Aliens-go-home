@@ -78,6 +78,9 @@ class App extends Component {
 
       // for evolving pandas
       if (data.data.length !== 0 || data2.data.length !== 0) {
+        console.log(data)
+        console.log(data2)
+
         console.log('Access');
         this.setState({ show: false })
       }
@@ -173,6 +176,15 @@ class App extends Component {
   render() {
     return (
       <>
+        <Canvas
+          angle={this.props.angle}
+          currentPlayer={this.props.currentPlayer}
+          gameState={this.props.gameState}
+          players={this.props.players}
+          startGame={this.props.startGame}
+          trackMouse={event => (this.trackMouse(event))}
+          shoot={this.shoot}
+        />
         {
           this.state.show
             ?
@@ -184,15 +196,7 @@ class App extends Component {
               </div>
             </div>
             :
-            <Canvas
-              angle={this.props.angle}
-              currentPlayer={this.props.currentPlayer}
-              gameState={this.props.gameState}
-              players={this.props.players}
-              startGame={this.props.startGame}
-              trackMouse={event => (this.trackMouse(event))}
-              shoot={this.shoot}
-            />
+            null
         }
       </>
     );
